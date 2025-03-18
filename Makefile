@@ -1,6 +1,7 @@
 # Makefile for Go BitTorrent Client
 
 # Configuration
+BUILD_DIR = bin
 BINARY_NAME = torrent-client
 GO_BUILD_FLAGS = -v
 GO_TEST_FLAGS = -v -race
@@ -12,7 +13,7 @@ all: build
 
 build: $(GO_SOURCES)
 	@echo "Building $(BINARY_NAME)..."
-	go build $(GO_BUILD_FLAGS) -o $(BINARY_NAME) Start.go
+	go build $(GO_BUILD_FLAGS) -o $(BUILD_DIR)/$(BINARY_NAME) Start.go
 
 test:
 	@echo "Running tests..."
@@ -44,7 +45,7 @@ deps:
 
 install: build
 	@echo "Installing to /usr/local/bin..."
-	@sudo install -m 755 $(BINARY_NAME) /usr/local/bin/$(BINARY_NAME)
+	@sudo install -m 755 $(BUILD_DIR)/$(BINARY_NAME) /usr/local/bin/$(BINARY_NAME)
 
 release: clean
 	@echo "Building releases for multiple platforms..."
